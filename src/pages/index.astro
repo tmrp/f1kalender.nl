@@ -1,12 +1,10 @@
 ---
-import { h } from 'preact';
-
 import Layout from '../layouts/Layout.astro';
 
 import ToggleTheme from '../components/toggle-theme';
 import UpcomingRaceHero from '../components/upcoming-race-hero.astro';
 import UpcomingRace from '../components/upcoming-race.astro';
-import RestOfRaces from '../components/rest-of-races';
+import RestOfRaces from '../components/rest-of-races.astro';
 import Footer from '../components/footer.astro';
 import Intro from '../components/intro.astro';
 import Wrapper from '../components/wrapper.astro';
@@ -23,7 +21,10 @@ const { upcomingRace, restOfRaces } = await getRaces();
     </Intro>
     <UpcomingRaceHero upcomingRace={upcomingRace} />
     <UpcomingRace upcomingRace={upcomingRace} />
-    <RestOfRaces restOfRaces={restOfRaces} client:only="preact" />
+  </Wrapper>
+  <!-- <hr /> -->
+  <Wrapper>
+    <RestOfRaces restOfRaces={restOfRaces} />
     <Footer />
   </Wrapper>
 </Layout>
