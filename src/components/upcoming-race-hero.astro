@@ -1,0 +1,36 @@
+---
+import { h } from 'preact';
+
+const { upcomingRace } = Astro.props;
+
+const previewTextBasedOnRaceDate = () => {
+  const raceDate = new Date(upcomingRace.date.fullEndDate).getDate();
+  const today = new Date().getDate();
+
+  const difference = raceDate - today;
+
+  const objectLiteral = (input) =>
+    ({
+      [`${input === 0}`]: 'Vandaag',
+      [`${input <= 4 && input > 0}`]: 'Dit weekend',
+      [`${input <= 7 && input > 4}`]: 'Deze week',
+      [`${input > 7}`]: 'Komende race',
+    }.true);
+
+  return objectLiteral(difference) || 'Komende race';
+};
+---
+
+<div>
+  <h2 class="dark:text-white text-2xl font-semibold">
+    {previewTextBasedOnRaceDate()}:{' '}
+    <span class="font-bold">🏆 {upcomingRace.event.eventTitle}</span>
+  </h2>
+  <h2 class="dark:text-white text-2xl font-semibold">
+    {upcomingRace.event.eventPlace}
+    {upcomingRace.event.flagEmoji}
+  </h2>
+  <h3 class="dark:text-white text-xl font-bold">
+    Ronde: {upcomingRace.raceRoundNumber}
+  </h3>
+</div>

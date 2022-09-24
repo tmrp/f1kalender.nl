@@ -1,0 +1,63 @@
+---
+import { SEO } from '../constants/seo';
+
+const {
+  pageTitle = SEO.config.title,
+  description = SEO.config.description,
+  image = SEO.config.image,
+} = Astro.props;
+
+const structuredData = {
+  '@context': 'http://www.schema.org',
+  '@type': SEO.config.type,
+  name: SEO.config.name,
+  url: SEO.config.url,
+  image: image,
+  description: description,
+  logo: SEO.config.logo,
+};
+---
+
+<head>
+  <title>{pageTitle}</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+  <meta name="description" content={description} />
+  <meta http-equiv="Content-Type" charset="text/html; utf-8" />
+  <meta name="theme-color" content={SEO.config.themeColor} />
+  {/* Google+ */}
+  <meta name="name" content={SEO.config.name} />
+  <meta name="description" content={description} />
+  <meta name="image" content={image} />
+  {/* Twitter */}
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={pageTitle} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:site" content={SEO.config.twitterHandle} />
+  <meta name="twitter:image" content={image} />
+  {/* Facebook */}
+
+  <meta property="og:type" content={SEO.config.contextType} />
+  <meta property="og:title" content={pageTitle} />
+  <meta property="og:url" content={SEO.config.url} />
+  <meta property="og:site_name" content={SEO.config.name} />
+  <meta property="og:image" content={image} />
+  <meta property="og:description" content={description} />
+  <meta property="og:locale" content={SEO.config.locale} />
+  <meta property="fb:app_id" content="" />
+  <meta property="fb:admins" content="" />
+  {/* schema.org */}
+
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData)}
+  ></script>
+  {/* favicon */}
+  <link rel="icon" type="image/ico" href={SEO.config.favicon} />
+  {/* SE follow & indexing */}
+  {
+    process.env.APPLICATION_ENV === 'production' ? (
+      <meta name="robots" content="index, follow" />
+    ) : (
+      <meta name="robots" content="noindex, nofollow" />
+    )
+  }
+</head>

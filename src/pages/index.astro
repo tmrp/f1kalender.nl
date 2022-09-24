@@ -1,110 +1,29 @@
 ---
-import { h, Fragment } from 'preact';
+import { h } from 'preact';
 
 import Layout from '../layouts/Layout.astro';
-import Card from '../components/Card.astro';
-import { applyThemePreference } from '../utils/theme-utils';
 
 import ToggleTheme from '../components/toggle-theme';
-import UpcomingRace from '../components/upcoming-race';
-import UpcomingRaceHero from '../components/upcoming-race-hero';
+import UpcomingRaceHero from '../components/upcoming-race-hero.astro';
+import UpcomingRace from '../components/upcoming-race.astro';
+import RestOfRaces from '../components/rest-of-races';
 import Footer from '../components/footer.astro';
-// import { useThemeStore } from '../store/useThemeStore';
-// import { useWindowWidth } from '../hooks/useWindowWidth';
+import Intro from '../components/intro.astro';
+import Wrapper from '../components/wrapper.astro';
 
-const response = await fetch(
-  `${import.meta.env.MONGODB_HTTP_API_URL}/get_races?secret=${
-    import.meta.env.MONGODB_HTTP_API_SECRET
-  }`,
-  {
-    method: 'GET',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-  }
-);
+import { getRaces } from '../api/get-races';
 
-const allRaces = await response.json();
-
-//
-
-const validRaceDates = allRaces[0].raceRounds.filter(
-  (element: any) => element.date.fullStartDate !== 'Invalid Date'
-);
-
-const upcomingRace = validRaceDates.find((element: any) => {
-  const raceEndTime = element.content.schedule.upcomingEvents
-    .slice(-1)[0]
-    .events.slice(-1)[0].time.end;
-
-  const raceEndDateAndTime = `${new Date(
-    element.date.fullEndDate
-  ).toDateString()} ${raceEndTime}`;
-
-  const isToday = new Date().toISOString();
-
-  return new Date(raceEndDateAndTime).toISOString() >= isToday;
-});
-
-const upcomingRaceNumber = upcomingRace.raceRoundNumber;
-
-const restOfRaces = allRaces[0].raceRounds.filter((element: any) => {
-  return parseInt(element.raceRoundNumber) > parseInt(upcomingRaceNumber);
-});
-
-// const [toggleSchema, setToggleSchema] = useState(undefined);
-
-// // const windowWidth = useWindowWidth();
-
-// // const toggleTheme = useThemeStore((state: any) => state.toggleTheme);
-// // const theme = useThemeStore((state: any) => state.theme);
-
-// // useEffect(() => {
-// //   applyThemePreference(theme);
-// // }, [theme]);
-
-// // const handleToggleTheme = useCallback(() => {
-// //   toggleTheme();
-// // }, [toggleTheme]);
-
-// const handleSchemaClick = useCallback(
-//   (event: any) => {
-//     event.preventDefault();
-
-//     setToggleSchema(
-//       // toggle between showing and hiding the schema
-//       event.target.value === toggleSchema ? undefined : event.target.value
-//     );
-//   },
-//   [toggleSchema]
-// );
-
-// const previewTextBasedOnRaceDate = () => {
-//   const raceDate = new Date(upcomingRace.date.fullEndDate).getDate();
-//   const today = new Date().getDate();
-
-//   const difference = raceDate - today;
-
-//   const objectLiteral = (input: any) =>
-//     ({
-//       [`${input === 0}`]: 'Vandaag',
-//       [`${input <= 4 && input > 0}`]: 'Dit weekend',
-//       [`${input <= 7 && input > 4}`]: 'Deze week',
-//       [`${input > 7}`]: 'Komende race',
-//     }.true);
-
-//   return objectLiteral(difference) || 'Komende race';
-// };
+const { upcomingRace, restOfRaces } = await getRaces();
 ---
 
 <Layout>
-  <main class="dark:bg-gray-900 min-h-screen">
-    <div class="max-w-4xl m-auto p-5 flex flex-col gap-5">
+  <Wrapper>
+    <Intro>
       <ToggleTheme client:only="preact" />
-      <UpcomingRaceHero upcomingRace={upcomingRace} client:load />
-      <UpcomingRace upcomingRace={upcomingRace} client:only="preact" />
-      <Footer />
-    </div>
-  </main>
+    </Intro>
+    <UpcomingRaceHero upcomingRace={upcomingRace} />
+    <UpcomingRace upcomingRace={upcomingRace} />
+    <RestOfRaces restOfRaces={restOfRaces} client:only="preact" />
+    <Footer />
+  </Wrapper>
 </Layout>

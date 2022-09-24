@@ -1,0 +1,114 @@
+---
+import {
+  EVENT_TYPE_BY_DATE,
+  EVENT_TYPE_EMOJI,
+} from '../constants/event-type-emoji';
+
+const { upcomingRace } = Astro.props;
+
+interface UpcomingRaceProps {
+  content: {
+    schedule: {
+      upcomingEventsAsList: {
+        title: string;
+        date: {
+          day: string;
+          dayNumber: string;
+          month: string;
+        };
+        time: {
+          start: string;
+          end: string;
+        };
+      }[];
+      upcomingEvents: {
+        day: string;
+        dayNumber: string;
+        month: string;
+        events: {
+          title: string;
+          time: {
+            start: string;
+            end: string;
+          };
+        }[];
+      }[];
+    };
+  };
+}
+
+interface Props {
+  upcomingRace: UpcomingRaceProps;
+}
+---
+
+<!-- Table view -->
+<table
+  class="hidden sm:inline-table border-collapse table-auto w-full bg-gray-200 dark:bg-gray-800 p-5 rounded-lg dark:text-white overflow-hidden"
+>
+  <thead class="bg-red-500 dark:bg-red-800">
+    <tr class="text-left sm:table-row">
+      <th class="p-2"></th>
+      <th class="p-2">Dag</th>
+      <th class="p-2"></th>
+      <th class="p-2">Evenement</th>
+      <th class="p-2">Tijd</th>
+    </tr>
+  </thead>
+  <tbody class="flex-1 sm:flex-none">
+    {
+      upcomingRace.content.schedule.upcomingEventsAsList.map((race) => (
+        <tr class={`text-lg`}>
+          <td class="dark:text-white p-2 w-min">
+            {EVENT_TYPE_EMOJI[race.title]}
+          </td>
+          <td class="dark:text-white p-2">{race.date.day}</td>
+          <td class="dark:text-white p-2">
+            {race.date.dayNumber} {race.date.month}
+          </td>
+          <td class="dark:text-white p-2">{race.title}</td>
+          <td class="dark:text-white p-2">
+            {race.time.start}-{race.time.end}
+          </td>
+        </tr>
+      ))
+    }
+  </tbody>
+</table>
+
+<!-- List View -->
+<div class="sm:hidden flex flex-col gap-5">
+  {
+    upcomingRace.content.schedule.upcomingEvents.map((date) => (
+      <article class="flex flex-col dark:text-white rounded-lg overflow-hidden">
+        <div class="bg-red-500 dark:bg-red-800 flex flex-row justify-between">
+          <h3 class="text-xl font-bold p-2">
+            {date.day} {date.dayNumber} {date.month}
+          </h3>
+          <span class="dark:bg-gray-800 bg-white m-2 rounded-lg">
+            <span class="text-xl font-bold p-2">
+              {EVENT_TYPE_BY_DATE[date.day]}
+            </span>
+          </span>
+        </div>
+        <div class="bg-gray-200 dark:bg-gray-800 flex flex-col">
+          <div class="p-2">
+            {date.events.map((event) => (
+              <div class="flex flex-row justify-between">
+                <span class="text-lg font-bold">{event.title}</span>
+                <span class="flex flex-row gap-2">
+                  <span class="text-lg font-bold">
+                    {EVENT_TYPE_EMOJI[event.title]}
+                  </span>
+                  <span class="text-lg font-bold">
+                    {event.time.start}-{event.time.end}
+                  </span>
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </article>
+    ))
+  }
+</div>

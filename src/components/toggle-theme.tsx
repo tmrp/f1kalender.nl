@@ -1,4 +1,4 @@
-import { FunctionComponent, h, render } from 'preact';
+import { h } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
 
 import { useThemeStore } from '../store/useThemeStore';
@@ -10,7 +10,6 @@ export default function ToggleTheme() {
 
   const handleToggleTheme = () => {
     toggleTheme();
-    // themeToggle.set(themeToggle.get() === 'light' ? 'dark' : 'light');
   };
 
   useEffect(() => {
@@ -18,16 +17,14 @@ export default function ToggleTheme() {
     applyThemePreference(theme as 'light' | 'dark');
   }, [theme, loaded]);
 
-  if (!loaded)
-    return (
-      <span className="dark:text-white text-4xl">...loading theme button</span>
-    );
+  if (!loaded) {
+    return;
+  }
 
   return (
     <button className="fit-content ml-auto mr-0" onClick={handleToggleTheme}>
       <span className="dark:text-white text-4xl">
-        {/* {theme === 'dark' ? '🌝' : '🌞'} */}
-        {/* button */}
+        {theme === 'dark' ? '🌝' : '🌞'}
       </span>
     </button>
   );

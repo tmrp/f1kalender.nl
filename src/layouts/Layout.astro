@@ -1,16 +1,39 @@
 ---
+import Head from '../components/head.astro';
 ---
 
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
-    <title>title</title>
-  </head>
+<html lang="nl">
+  <Head />
   <body>
+    <script is:inline>
+      (function () {
+        const html = document.querySelector('html');
+        const body = document.querySelector('body');
+
+        const parsedThemeFromLocalStorage = () => {
+          const themeInStorage = localStorage.getItem('theme');
+          const parseTheme = JSON.parse(themeInStorage);
+          const theme = parseTheme.state.theme;
+          return theme;
+        };
+
+        try {
+          if (
+            parsedThemeFromLocalStorage() === 'dark' ||
+            (!('theme' in localStorage) &&
+              window.matchMedia('(prefers-color-scheme: dark)').matches)
+          ) {
+            html.classList.add('dark');
+            body.classList.add('dark');
+          } else {
+            html.classList.remove('dark');
+            body.classList.remove('dark');
+          }
+        } catch (_) {}
+      })();
+    </script>
+
     <slot />
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');

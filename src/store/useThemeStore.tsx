@@ -1,3 +1,4 @@
+import { h } from 'preact';
 import create from 'zustand';
 import { persist } from 'zustand/middleware';
 
