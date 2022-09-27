@@ -21,13 +21,3 @@ export const useThemeStore = create<ThemeState>()(
     }
   )
 );
-
-export const useToggleRaceDetails = create<any>()((set) => ({
-  toggleSchema: null,
-  handleSchemaClick: (event: any) => {
-    set((state) => ({
-      toggleSchema:
-        event.target.value === state.toggleSchema ? null : event.target.value,
-    }));
-  },
-}));

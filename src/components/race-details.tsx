@@ -4,15 +4,16 @@ import {
   EVENT_TYPE_BY_DATE,
   EVENT_TYPE_EMOJI,
 } from '../constants/event-type-emoji';
-import { useToggleRaceDetails } from '../store/useThemeStore';
+
+import { useToggleState } from '../state/useToggleState';
 
 const RaceDetails = ({ race }) => {
-  const { toggleSchema } = useToggleRaceDetails();
+  const { toggleState } = useToggleState();
 
   return (
     <div className="flex flex-col gap-2">
-      {toggleSchema &&
-        toggleSchema === race.raceRoundNumber &&
+      {toggleState &&
+        toggleState === race.raceRoundNumber &&
         race.content.schedule.upcomingEvents
           .filter((element) => element.dayNumber !== 'TBC')
           .map((date) => (

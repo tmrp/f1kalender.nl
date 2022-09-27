@@ -1,24 +1,23 @@
-import { h, Fragment } from 'preact';
+import { h } from 'preact';
 import { ChevronDownIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
-import { useCallback, useState } from 'preact/hooks';
-import {
-  EVENT_TYPE_BY_DATE,
-  EVENT_TYPE_EMOJI,
-} from '../constants/event-type-emoji';
-import { useWindowWidth } from '../hooks/useWindowWidth';
-import { useToggleRaceDetails } from '../store/useThemeStore';
+import { useCallback } from 'preact/hooks';
+
+import { useToggleState } from '../state/useToggleState';
 
 const ToggleRaceDetails = ({ race }) => {
-  const { toggleSchema, handleSchemaClick: schemaClick } =
-    useToggleRaceDetails();
+  const { toggleState, setToggleState } = useToggleState();
 
   const handleSchemaClick = useCallback(
     (event) => {
       event.preventDefault();
 
-      schemaClick(event);
+      setToggleState(
+        event.target.value === toggleState
+          ? false
+          : (event.target.value as boolean)
+      );
     },
-    [toggleSchema]
+    [toggleState]
   );
 
   return (
@@ -32,7 +31,7 @@ const ToggleRaceDetails = ({ race }) => {
           <span>⚙️ </span>
           <span className="">schema</span>
         </span>
-        {toggleSchema === race.raceRoundNumber ? (
+        {toggleState === race.raceRoundNumber ? (
           <ChevronDownIcon
             className="h-6 w-6 text-white pointer-events-none"
             aria-hidden="true"
