@@ -1,6 +1,6 @@
 # Frontend for [f1kalender.nl](https://f1kalender.nl)
 
-## 🏎 🗓 Formula 1 Season calendar with Dutch broadcasting times
+## 🏎 🗓 Formula 1 Season calendar with Dutch event times
 
 ![basics](public/images/f1-kalender-seo-image.png)
 
