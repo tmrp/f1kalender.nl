@@ -13,7 +13,7 @@ const ToggleRaceDetails = ({ race }) => {
     useToggleRaceDetails();
 
   const handleSchemaClick = useCallback(
-    (event: any) => {
+    (event) => {
       event.preventDefault();
 
       schemaClick(event);
@@ -21,7 +21,6 @@ const ToggleRaceDetails = ({ race }) => {
     [toggleSchema]
   );
 
-  console.log('toglllle', toggleSchema);
   return (
     <button
       className="bg-blue-900 p-1 rounded-md text-white"

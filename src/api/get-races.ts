@@ -15,10 +15,10 @@ export const getRaces = async () => {
   const allRaces = await response.json();
 
   const validRaceDates = allRaces[0].raceRounds.filter(
-    (element: any) => element.date.fullStartDate !== 'Invalid Date'
+    (element) => element.date.fullStartDate !== 'Invalid Date'
   );
 
-  const upcomingRace = validRaceDates.find((element: any) => {
+  const upcomingRace = validRaceDates.find((element) => {
     const raceEndTime = element.content.schedule.upcomingEvents
       .slice(-1)[0]
       .events.slice(-1)[0].time.end;
@@ -34,7 +34,7 @@ export const getRaces = async () => {
 
   const upcomingRaceNumber = upcomingRace.raceRoundNumber;
 
-  const restOfRaces = allRaces[0].raceRounds.filter((element: any) => {
+  const restOfRaces = allRaces[0].raceRounds.filter((element) => {
     return parseInt(element.raceRoundNumber) > parseInt(upcomingRaceNumber);
   });
 
