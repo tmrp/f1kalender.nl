@@ -2,12 +2,14 @@
 const { upcomingRace } = Astro.props;
 
 const previewTextBasedOnRaceDate = () => {
-  const raceDate = new Date(upcomingRace.date.fullEndDate).getDate();
-  const today = new Date().getDate();
+  const raceDate = new Date(upcomingRace.date.fullEndDate);
+  const today = new Date();
 
-  const difference = raceDate - today;
+  const difference = raceDate.getTime() - today.getTime();
 
-  const objectLiteral = (input) =>
+  const totalDays = Math.ceil(difference / (1000 * 3600 * 24));
+
+  const objectLiteral = (input: number) =>
     ({
       [`${input === 0}`]: 'Vandaag',
       [`${input <= 4 && input > 0}`]: 'Dit weekend',
@@ -15,7 +17,7 @@ const previewTextBasedOnRaceDate = () => {
       [`${input > 7}`]: 'Komende race',
     }.true);
 
-  return objectLiteral(difference) || 'Komende race';
+  return objectLiteral(totalDays) || 'Komende race';
 };
 ---
 
