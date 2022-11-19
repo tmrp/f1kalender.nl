@@ -24,7 +24,7 @@ const { upcomingRace, restOfRaces } = await getRaces();
   </Wrapper>
 
   <Wrapper>
-    <RestOfRaces restOfRaces={restOfRaces} />
+    {restOfRaces?.length && <RestOfRaces restOfRaces={restOfRaces} />}
     <Footer />
   </Wrapper>
 </Layout>
