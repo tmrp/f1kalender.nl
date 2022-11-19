@@ -19,8 +19,19 @@ const { upcomingRace, restOfRaces } = await getRaces();
     <Intro>
       <ToggleTheme client:only="preact" />
     </Intro>
-    <UpcomingRaceHero upcomingRace={upcomingRace} />
-    <UpcomingRace upcomingRace={upcomingRace} />
+    {
+      upcomingRace ? (
+        <>
+          <UpcomingRaceHero upcomingRace={upcomingRace} />
+          <UpcomingRace upcomingRace={upcomingRace} />
+        </>
+      ) : (
+        <h2 class="dark:text-white text-2xl font-semibold">
+          Bedankt voor het bezoeken! Tot het volgende seizoen in
+          {new Date().getFullYear() + 1}
+        </h2>
+      )
+    }
   </Wrapper>
 
   <Wrapper>
