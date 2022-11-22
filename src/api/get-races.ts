@@ -32,7 +32,7 @@ export const getRaces = async () => {
     return new Date(raceEndDateAndTime).toISOString() >= isToday;
   });
 
-  const upcomingRaceNumber = upcomingRace.raceRoundNumber;
+  const upcomingRaceNumber = upcomingRace?.raceRoundNumber;
 
   const restOfRaces = allRaces[0].raceRounds.filter((element) => {
     return parseInt(element.raceRoundNumber) > parseInt(upcomingRaceNumber);
