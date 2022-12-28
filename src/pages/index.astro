@@ -11,12 +11,12 @@ import Wrapper from '../components/wrapper.astro';
 
 import { getRaces } from '../api/get-races';
 
-const { upcomingRace, restOfRaces } = await getRaces();
+const { upcomingRace, restOfRaces, seasonYear } = await getRaces();
 ---
 
 <Layout>
   <Wrapper>
-    <Intro>
+    <Intro seasonYear={seasonYear}>
       <ToggleTheme client:only="preact" />
     </Intro>
     {

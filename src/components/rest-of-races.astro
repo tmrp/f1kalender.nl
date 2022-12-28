@@ -21,34 +21,45 @@ const { restOfRaces } = Astro.props;
                 <span>{race.date.endDate}</span>
                 <span>{race.date.month}</span>
               </div>
-              <div class="p-2">
-                <h3 class="dark:text-white text-xl font-semibold">
-                  <span class="font-semibold mr-2">🏎</span>
-                  <span class="font-semibold">{race.event.eventTitle}</span>
-                </h3>
-                <h3 class="dark:text-white text-xl font-semibold">
-                  {race.event.eventPlace} {race.event.flagEmoji}
-                </h3>
-
-                <h4 class="dark:text-white text-xl font-semibold">
-                  Ronde: {race.raceRoundNumber}
-                </h4>
-              </div>
-              <div class="flex flex-col gap-2 p-2 xs:flex-row items-start">
-                {race.content.schedule.upcomingEvents.some(
-                  (element) => element.dayNumber === 'TBC'
-                ) && (
-                  <span class="flex">
-                    <span class="text-orange-600 font-semibold">
-                      <span>⚠️</span>
-                      volledig schema nog niet bekend
-                      <span>⚠️</span>
+              {race.event.eventTitle !== 'TBC' ? (
+                <div class="p-2">
+                  <h3 class="dark:text-white text-xl font-semibold">
+                    <span class="font-semibold mr-2">🏎</span>
+                    <span class="font-semibold">{race.event.eventTitle}</span>
+                  </h3>
+                  <h3 class="dark:text-white text-xl font-semibold">
+                    {race.event.eventPlace} {race.event.flagEmoji}
+                  </h3>
+                  <h4 class="dark:text-white text-xl font-semibold">
+                    Ronde: {race.raceRoundNumber}
+                  </h4>
+                </div>
+              ) : (
+                <div class="dark:bg-orange-800 bg-orange-200 p-2">
+                  <h3 class="dark:text-white text-xl font-semibold">
+                    <span class="font-semibold">
+                      🚧 Race wordt nader bekend gemaakt 🚧
                     </span>
-                  </span>
-                )}
+                  </h3>
+                </div>
+              )}
+              {race.event.eventTitle !== 'TBC' && (
+                <div class="flex flex-col gap-2 p-2 xs:flex-row items-start">
+                  {race.content.schedule.upcomingEvents.some(
+                    (element) => element.dayNumber === 'TBC'
+                  ) && (
+                    <span class="flex">
+                      <span class="text-orange-600 font-semibold">
+                        <span>⚠️</span>
+                        volledig schema nog niet bekend
+                        <span>⚠️</span>
+                      </span>
+                    </span>
+                  )}
 
-                <ToggleRaceDetails race={race} client:only="preact" />
-              </div>
+                  <ToggleRaceDetails race={race} client:only="preact" />
+                </div>
+              )}
             </div>
 
             <RaceDetails race={race} client:only="preact" />

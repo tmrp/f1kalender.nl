@@ -18,6 +18,8 @@ export const getRaces = async () => {
     (element) => element.date.fullStartDate !== 'Invalid Date'
   );
 
+  const { seasonYear } = allRaces[0];
+
   const upcomingRace = validRaceDates.find((element) => {
     const raceEndTime = element.content.schedule.upcomingEvents
       .slice(-1)[0]
@@ -38,5 +40,9 @@ export const getRaces = async () => {
     return parseInt(element.raceRoundNumber) > parseInt(upcomingRaceNumber);
   });
 
-  return { upcomingRace: upcomingRace, restOfRaces: restOfRaces };
+  return {
+    upcomingRace: upcomingRace,
+    restOfRaces: restOfRaces,
+    seasonYear: seasonYear,
+  };
 };
