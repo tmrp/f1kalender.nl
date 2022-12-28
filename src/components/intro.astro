@@ -1,7 +1,15 @@
+---
+export interface Props {
+  seasonYear: number;
+}
+
+const { seasonYear } = Astro.props;
+---
+
 <div class="flex flex-col gap-4">
   <div class="flex">
     <h1 class="dark:text-white text-5xl font-semibold">
-      F1 Kalender {new Date().getFullYear()}
+      F1 Kalender {seasonYear}
     </h1>
     <slot />
   </div>
