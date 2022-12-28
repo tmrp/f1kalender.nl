@@ -9,28 +9,44 @@ const previewTextBasedOnRaceDate = () => {
 
   const totalDays = Math.ceil(difference / (1000 * 3600 * 24));
 
+  const isRaceOrTest = () => {
+    if (upcomingRace.event.eventTitle.includes('TESTING')) {
+      return 'test';
+    }
+
+    return 'race';
+  };
+
   const objectLiteral = (input: number) =>
     ({
       [`${input === 0}`]: 'Vandaag',
       [`${input <= 4 && input > 0}`]: 'Dit weekend',
       [`${input <= 7 && input > 4}`]: 'Deze week',
-      [`${input > 7}`]: 'Komende race',
+      [`${input > 7}`]: `Komende ${isRaceOrTest()}`,
     }.true);
 
   return objectLiteral(totalDays) || 'Komende race';
 };
 ---
 
-<div>
-  <h2 class="dark:text-white text-2xl font-semibold">
-    {previewTextBasedOnRaceDate()}:{' '}
-    <span class="font-bold">🏆 {upcomingRace.event.eventTitle}</span>
-  </h2>
-  <h2 class="dark:text-white text-2xl font-semibold">
-    {upcomingRace.event.eventPlace}
-    {upcomingRace.event.flagEmoji}
-  </h2>
-  <h3 class="dark:text-white text-xl font-bold">
-    Ronde: {upcomingRace.raceRoundNumber}
-  </h3>
+<div class="dark:text-white">
+  <div class="mb-2">
+    <h2 class="text-2xl font-semibold">
+      {previewTextBasedOnRaceDate()}:{' '}
+      <span class="font-bold">🏆 {upcomingRace.event.eventTitle}</span>
+    </h2>
+    <h2 class="text-2xl font-semibold">
+      {upcomingRace.event.eventPlace}
+      {upcomingRace.event.flagEmoji}
+    </h2>
+  </div>
+
+  <div class="flex gap-2 items-baseline">
+    <h3 class="text-xl font-bold">
+      {
+        upcomingRace.raceRoundNumber === '0'
+          ? 'Pre-season test'
+          : `Ronde: ${upcomingRace.raceRoundNumber}`
+      }:
+    </h3>
 </div>
