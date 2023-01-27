@@ -5,6 +5,7 @@ export const EVENT_TYPE_EMOJI = {
   'Sprint race': '🏃‍♂️',
   Kwalificatie: '⏱',
   Race: '🏎 💨',
+  TestDag: '🛠️',
 };
 
 export const EVENT_TYPE_BY_DATE = {

@@ -86,7 +86,9 @@ interface Props {
               </h3>
               <span class="dark:bg-gray-800 bg-white m-2 rounded-lg">
                 <span class="text-xl font-bold p-2">
-                  {EVENT_TYPE_BY_DATE[date.day]}
+                  {date.events.find((event) => event.title === 'Testdag')
+                    ? '🛠️'
+                    : EVENT_TYPE_BY_DATE[date.day]}
                 </span>
               </span>
             </div>
