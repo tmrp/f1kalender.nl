@@ -1,6 +1,10 @@
 ---
 import Wrapper from '../components/wrapper.astro';
 import Layout from '../layouts/Layout.astro';
+
+const { self } = Astro;
+
+const getAstroModule = self.moduleId.split('/').slice(-1)[0];
 ---
 
 <Layout>
@@ -15,7 +19,8 @@ import Layout from '../layouts/Layout.astro';
         >
       </section>
 
-      <div id="container"></div>
+      <astro-f1-car id="container" data-astro-module-id={getAstroModule}
+      ></astro-f1-car>
     </div>
   </Wrapper>
 </Layout>
@@ -31,4 +36,20 @@ import Layout from '../layouts/Layout.astro';
   }
 </style>
 
-<script src="../three/f1-car-scene.js"></script>
+<script>
+  import { F1CarScene } from '../three/f1-car-scene';
+
+  class AstroF1Car extends HTMLElement {
+    constructor() {
+      super();
+
+      const Astro = this.dataset.astroModuleId;
+
+      if (Astro === '404.astro') {
+        F1CarScene();
+      }
+    }
+  }
+
+  customElements.define('astro-f1-car', AstroF1Car);
+</script>
