@@ -71,7 +71,9 @@ interface Props {
               </td>
               <td class="dark:text-white p-2">{race.title}</td>
               <td class="dark:text-white p-2">
-                {race.time.start}-{race.time.end}
+                {race.time.start && race.time.end
+                  ? `${race.time.start}-${race.time.end}`
+                  : race.time.start}
               </td>
             </tr>
           ))}
@@ -102,7 +104,9 @@ interface Props {
                         {EVENT_TYPE_EMOJI[event.title]}
                       </span>
                       <span class="text-lg font-bold">
-                        {event.time.start}-{event.time.end}
+                        {event.time.start && event.time.end
+                          ? `${event.time.start}-${event.time.end}`
+                          : event.time.start}
                       </span>
                     </span>
                   </div>

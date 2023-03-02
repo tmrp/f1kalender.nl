@@ -23,11 +23,11 @@ export const getRaces = async () => {
   const upcomingRace = validRaceDates.find((element) => {
     const raceEndTime = element.content.schedule.upcomingEvents
       .slice(-1)[0]
-      .events.slice(-1)[0].time.end;
+      ?.events.slice(-1)[0].time.end;
 
     const raceEndDateAndTime = `${new Date(
       element.date.fullEndDate
-    ).toDateString()} ${raceEndTime}`;
+    ).toDateString()} ${raceEndTime || '00:00:00'}`;
 
     const isToday = new Date().toISOString();
 

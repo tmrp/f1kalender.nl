@@ -36,7 +36,9 @@ const RaceDetails = ({ race }) => {
                         {EVENT_TYPE_EMOJI[event.title]}
                       </span>
                       <span className="text-ms font-semibold">
-                        {event.time.start}-{event.time.end}
+                        {event.time.start && event.time.end
+                          ? `${event.time.start}-${event.time.end}`
+                          : event.time.start}
                       </span>
                     </span>
                   </div>
