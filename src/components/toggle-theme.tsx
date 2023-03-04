@@ -23,7 +23,7 @@ export default function ToggleTheme() {
 
   return (
     <button className="fit-content ml-auto mr-0" onClick={handleToggleTheme}>
-      <span className="dark:text-white text-4xl">
+      <span className="text-4xl dark:text-white">
         {theme === 'dark' ? '🌝' : '🌞'}
       </span>
     </button>

@@ -26,7 +26,7 @@ const { upcomingRace, restOfRaces, seasonYear } = await getRaces();
           <UpcomingRace upcomingRace={upcomingRace} />
         </>
       ) : (
-        <h2 class="dark:text-white text-2xl font-semibold">
+        <h2 class="text-2xl font-semibold dark:text-white">
           Bedankt voor het bezoeken! Tot het volgende seizoen in
           {new Date().getFullYear() + 1}!
         </h2>

@@ -22,23 +22,23 @@ const ToggleRaceDetails = ({ race }) => {
 
   return (
     <button
-      className="bg-blue-900 p-1 rounded-md text-white"
+      className="rounded-md bg-blue-900 p-1 text-white"
       onClick={handleSchemaClick}
       value={race.raceRoundNumber}
     >
-      <span className="pointer-events-none flex flex-row gap-2 align-baselin justify-between">
+      <span className="align-baselin pointer-events-none flex flex-row justify-between gap-2">
         <span>
           <span>⚙️ </span>
           <span className="">schema</span>
         </span>
         {toggleState === race.raceRoundNumber ? (
           <ChevronDownIcon
-            className="h-6 w-6 text-white pointer-events-none"
+            className="pointer-events-none h-6 w-6 text-white"
             aria-hidden="true"
           />
         ) : (
           <ChevronRightIcon
-            className="h-6 w-6 text-white pointer-events-none"
+            className="pointer-events-none h-6 w-6 text-white"
             aria-hidden="true"
           />
         )}

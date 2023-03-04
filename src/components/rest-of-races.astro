@@ -6,16 +6,16 @@ const { restOfRaces } = Astro.props;
 ---
 
 <section>
-  <div class="max-w-4xl m-auto py-5 flex flex-col gap-5">
+  <div class="m-auto flex max-w-4xl flex-col gap-5 py-5">
     <div>
-      <h2 class="dark:text-white text-3xl font-semibold">Komende races:</h2>
+      <h2 class="text-3xl font-semibold dark:text-white">Komende races:</h2>
     </div>
     <div class="flex flex-col gap-5">
       {
         restOfRaces.map((race) => (
           <article class="flex flex-col gap-2">
-            <div class="bg-gray-200 flex flex-col justify-between overflow-hidden rounded-md dark:bg-gray-800">
-              <div class="flex flex-row p-2 gap-2 bg-blue-200 text-center font-semibold dark:bg-blue-700 dark:text-white">
+            <div class="flex flex-col justify-between overflow-hidden rounded-md bg-gray-200 dark:bg-gray-800">
+              <div class="flex flex-row gap-2 bg-blue-200 p-2 text-center font-semibold dark:bg-blue-700 dark:text-white">
                 🗓
                 <span>{race.date.startDate}</span>-
                 <span>{race.date.endDate}</span>
@@ -23,20 +23,20 @@ const { restOfRaces } = Astro.props;
               </div>
               {race.event.eventTitle !== 'TBC' ? (
                 <div class="p-2">
-                  <h3 class="dark:text-white text-xl font-semibold">
-                    <span class="font-semibold mr-2">🏎</span>
+                  <h3 class="text-xl font-semibold dark:text-white">
+                    <span class="mr-2 font-semibold">🏎</span>
                     <span class="font-semibold">{race.event.eventTitle}</span>
                   </h3>
-                  <h3 class="dark:text-white text-xl font-semibold">
+                  <h3 class="text-xl font-semibold dark:text-white">
                     {race.event.eventPlace} {race.event.flagEmoji}
                   </h3>
-                  <h4 class="dark:text-white text-xl font-semibold">
+                  <h4 class="text-xl font-semibold dark:text-white">
                     Ronde: {race.raceRoundNumber}
                   </h4>
                 </div>
               ) : (
-                <div class="dark:bg-orange-800 bg-orange-200 p-2">
-                  <h3 class="dark:text-white text-xl font-semibold">
+                <div class="bg-orange-200 p-2 dark:bg-orange-800">
+                  <h3 class="text-xl font-semibold dark:text-white">
                     <span class="font-semibold">
                       🚧 Race wordt nader bekend gemaakt 🚧
                     </span>
@@ -44,12 +44,12 @@ const { restOfRaces } = Astro.props;
                 </div>
               )}
               {race.event.eventTitle !== 'TBC' && (
-                <div class="flex flex-col gap-2 p-2 xs:flex-row items-start">
+                <div class="xs:flex-row flex flex-col items-start gap-2 p-2">
                   {race.content.schedule.upcomingEvents.some(
                     (element) => element.dayNumber === 'TBC'
                   ) && (
                     <span class="flex">
-                      <span class="text-orange-600 font-semibold">
+                      <span class="font-semibold text-orange-600">
                         <span>⚠️</span>
                         volledig schema nog niet bekend
                         <span>⚠️</span>

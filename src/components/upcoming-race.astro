@@ -49,7 +49,7 @@ interface Props {
     (race) => race.date.dayNumber !== 'TBC'
   ) ? (
     <>
-      <table class="hidden sm:inline-table border-collapse table-auto w-full bg-gray-200 dark:bg-gray-800 p-5 rounded-lg dark:text-white overflow-hidden">
+      <table class="hidden w-full table-auto border-collapse overflow-hidden rounded-lg bg-gray-200 p-5 dark:bg-gray-800 dark:text-white sm:inline-table">
         <thead class="bg-red-500 dark:bg-red-800">
           <tr class="text-left sm:table-row">
             <th class="p-2" />
@@ -62,15 +62,15 @@ interface Props {
         <tbody class="flex-1 sm:flex-none">
           {upcomingRace.content.schedule.upcomingEventsAsList.map((race) => (
             <tr class={`text-lg`}>
-              <td class="dark:text-white p-2 w-min">
+              <td class="w-min p-2 dark:text-white">
                 {EVENT_TYPE_EMOJI[race.title]}
               </td>
-              <td class="dark:text-white p-2">{race.date.day}</td>
-              <td class="dark:text-white p-2">
+              <td class="p-2 dark:text-white">{race.date.day}</td>
+              <td class="p-2 dark:text-white">
                 {race.date.dayNumber} {race.date.month}
               </td>
-              <td class="dark:text-white p-2">{race.title}</td>
-              <td class="dark:text-white p-2">
+              <td class="p-2 dark:text-white">{race.title}</td>
+              <td class="p-2 dark:text-white">
                 {race.time.start && race.time.end
                   ? `${race.time.start}-${race.time.end}`
                   : race.time.start}
@@ -79,22 +79,22 @@ interface Props {
           ))}
         </tbody>
       </table>
-      <div class="sm:hidden flex flex-col gap-5">
+      <div class="flex flex-col gap-5 sm:hidden">
         {upcomingRace.content.schedule.upcomingEvents.map((date) => (
-          <article class="flex flex-col dark:text-white rounded-lg overflow-hidden">
-            <div class="bg-red-500 dark:bg-red-800 flex flex-row justify-between">
-              <h3 class="text-xl font-bold p-2">
+          <article class="flex flex-col overflow-hidden rounded-lg dark:text-white">
+            <div class="flex flex-row justify-between bg-red-500 dark:bg-red-800">
+              <h3 class="p-2 text-xl font-bold">
                 {date.day} {date.dayNumber} {date.month}
               </h3>
-              <span class="dark:bg-gray-800 bg-white m-2 rounded-lg">
-                <span class="text-xl font-bold p-2">
+              <span class="m-2 rounded-lg bg-white dark:bg-gray-800">
+                <span class="p-2 text-xl font-bold">
                   {date.events.find((event) => event.title === 'Testdag')
                     ? '🛠️'
                     : EVENT_TYPE_BY_DATE[date.day]}
                 </span>
               </span>
             </div>
-            <div class="bg-gray-200 dark:bg-gray-800 flex flex-col">
+            <div class="flex flex-col bg-gray-200 dark:bg-gray-800">
               <div class="p-2">
                 {date.events.map((event) => (
                   <div class="flex flex-row justify-between">
