@@ -7,7 +7,7 @@ import Head from '../components/head.astro';
   <Head />
   <body class="min-h-screen dark:bg-gray-900">
     <!-- Dark mode flash script -->
-    <script is:inline>
+    <script defer is:inline>
       (function () {
         const html = document.querySelector('html');
         const body = document.querySelector('body');
