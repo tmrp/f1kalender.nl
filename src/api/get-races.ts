@@ -27,7 +27,7 @@ export const getRaces = async () => {
 
     const raceEndDateAndTime = `${new Date(
       element.date.fullEndDate
-    ).toDateString()} ${raceEndTime || '00:00:00'}`;
+    ).toDateString()} ${raceEndTime || '24:00:00'}`;
 
     const isToday = new Date().toISOString();
 
