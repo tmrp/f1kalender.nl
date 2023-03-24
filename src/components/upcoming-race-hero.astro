@@ -1,4 +1,6 @@
 ---
+import { formatDateSpan } from '../utils/date-time';
+
 const { upcomingRace } = Astro.props;
 
 const previewTextBasedOnRaceDate = () => {
@@ -50,8 +52,13 @@ const previewTextBasedOnRaceDate = () => {
       }:
     </h3>
     <p class="font-semibold">
-      {upcomingRace.date.startDate} tot en met {upcomingRace.date.endDate}
-      {upcomingRace.date.month}
+      {
+        formatDateSpan(
+          upcomingRace.date.fullStartDate,
+          upcomingRace.date.fullEndDate,
+          'tot en met'
+        )
+      }
     </p>
   </div>
 </div>
