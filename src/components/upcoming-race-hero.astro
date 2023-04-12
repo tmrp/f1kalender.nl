@@ -24,10 +24,10 @@ const previewTextBasedOnRaceDate = () => {
       [`${input === 0}`]: 'Vandaag',
       [`${input <= 4 && input > 0}`]: 'Dit weekend',
       [`${input <= 7 && input > 4}`]: 'Deze week',
-      [`${input > 7}`]: `Komende ${isRaceOrTest()}`,
+      [`${input > 7}`]: `Volgende ${isRaceOrTest()}`,
     }.true);
 
-  return objectLiteral(totalDays) || 'Komende race';
+  return objectLiteral(totalDays) || 'Volgende race';
 };
 ---
 
